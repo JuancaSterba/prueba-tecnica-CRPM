@@ -1,0 +1,19 @@
+1-
+
+SELECT a.dni, a.apellido, a.nombres, c.cod_curso, c.desccripcion AS curso, c.abreviatura
+FROM alumnos a
+JOIN inscripciones i ON a.dni = i.dni_Alu
+JOIN cursos c ON i.cod_curso = c.cod_curso;
+
+2-
+
+SELECT a.dni, a.apellido, a.nombres
+FROM alumnos a
+JOIN inscripciones i ON a.dni = i.dni_Alu
+JOIN cursos c ON i.cod_curso = c.cod_curso
+WHERE c.desccripcion = 'Desarrollo Back End'
+AND (a.dni, c.cod_curso) NOT IN (
+    SELECT p.dni_alu, p.cod_curso
+    FROM pagos p
+    WHERE p.mes = 6 AND p.anio = 2023
+)
